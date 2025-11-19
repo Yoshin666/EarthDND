@@ -1,0 +1,924 @@
+/**** --- HOME --- ****/
+.cabecera {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 4rem;
+  height: 3rem;
+  border-radius: 30px;
+}
+
+h1 {
+  text-align: center;
+  color: rgb(3, 3, 211);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "nav nav header"
+    "main main main"
+    "footer footer footer";
+}
+
+.container > nav {
+  grid-area: nav;
+  margin-top: 3em;
+  margin-left: 5em;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: gray;
+  font-style: bolder;
+  border-bottom: 2px solid rgb(189, 185, 185);
+}
+
+.container > header {
+  grid-area: header;
+  justify-content: right;
+  margin-right: 10rem;
+  margin-top: 2%;
+  border-bottom: 2px solid rgb(189, 185, 185);
+}
+
+.login,
+.register {
+  padding: 25px;
+  color: grey;
+}
+
+.casaModelo {
+  width: 45rem;
+  height: auto;
+  padding: 2rem;
+  border-radius: 40px;
+}
+
+main {
+  grid-area: main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header {
+  background-color: white;
+  border: none;
+}
+
+.card {
+  border: none;
+  text-align: left;
+}
+
+.card-body-img {
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-your-spot {
+  text-align: center;
+}
+
+section {
+  padding: 30px;
+}
+
+.card-text {
+  font-size: small;
+  color: grey;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important;
+}
+
+.accordion-button {
+  font-size: large;
+  font-weight: 600;
+}
+
+.title-solve-problem {
+  font-size: xx-large;
+}
+
+.ask {
+  max-width: 1000px;
+}
+
+footer {
+  grid-area: footer;
+  background-color: rgb(239, 238, 238);
+  height: 40px;
+  width: 100%;
+  font-weight: 500;
+  padding-left: 25px;
+}
+
+.button-login,
+.button-close-profile,
+.button-back,
+.button-back-link {
+  background-color: white;
+  border: none;
+  color: grey;
+  font-weight: 500;
+  font-size: large;
+  padding: 15px;
+  text-decoration: none;
+}
+
+.container-footer {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-icons a {
+  margin-left: 1rem;
+  color: gray;
+  font-size: 1.3rem;
+}
+
+.social-icons a:hover {
+  color: #007bff;
+}
+
+.img-a {
+  text-decoration: none;
+}
+
+/**** --- LOGIN --- ****/
+.login-form {
+  width: 100%;
+  max-width: 420px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.card-header {
+  padding: 30px 25px 20px;
+  position: relative;
+  text-align: center;
+  color: rgb(76, 48, 141);
+  text-decoration: underline;
+}
+
+.close-button-login {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: rgb(76, 48, 141);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: large;
+}
+
+.close-button-login:hover {
+  background: #a9bdce 100%;
+  transform: scale(1.1);
+}
+
+.h2-login {
+  margin: 8px 0;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 1.6rem;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.label-login {
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+  font-weight: 600;
+  text-align: center;
+  font-size: 1rem;
+  padding: 2px;
+}
+
+.input-login::placeholder {
+  color: #aaa;
+}
+
+.input-login {
+  width: 100%;
+  border-radius: 5px;
+  border-color: #94a9bc;
+  padding: 4px;
+}
+
+.send-button-login,
+.send-button-login-register {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(to right, #133d62 0%, #0e676c 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.o {
+  text-align: center;
+  font-size: large;
+  color: black;
+}
+
+.link-to-register {
+  color: #fff;
+  text-decoration: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
+.card-login {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 50;
+}
+
+/*** --- REGISTER --- ***/
+.footer-signup,
+.footer-profile {
+  display: flex;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.form-register {
+  width: 600px;
+  padding: 10px;
+  margin-bottom: 70px;
+}
+
+.label-register {
+  margin-bottom: 20px;
+  color: #555;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 2px;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.input-register::placeholder {
+  color: #aaa;
+}
+
+.input-group label {
+  width: 120px;
+  font-weight: 500;
+}
+
+.input-group input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.checkbox {
+  display: inline-block;
+  color: #555;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px;
+}
+
+.h2-register-form {
+  text-align: center;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 1.8rem;
+  font-family: "Times New Roman", Times, serif;
+  padding: 15px;
+  color: rgb(76, 48, 141);
+}
+
+.button-back-register {
+  background-color: white;
+  border: none;
+  color: grey;
+  font-weight: 500;
+  font-size: large;
+  text-decoration: none;
+}
+
+/* --- PROFILE PAGE --- */
+.section-profile {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+.card-header-profile {
+  color: rgb(134, 108, 193);
+  padding: 10px 40px 0px;
+  position: relative;
+}
+
+.data-profile {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: gray;
+  font-style: bolder;
+  padding: 0px 20px 0px;
+  font-weight: 600;
+}
+
+.welcome {
+  color: rgb(76, 48, 141);
+  padding-bottom: 40px;
+}
+
+.profile-img-box {
+  padding: 10px 20px 20px;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #94a9bc;
+  box-shadow: 0 0 20px rgba(23, 0, 125, 0.3);
+}
+
+.ad-title {
+  color: rgb(134, 108, 193);
+  text-align: center;
+  padding-right: 150px;
+  text-decoration: underline;
+}
+
+.edit-profile-button {
+  background-color: white;
+  width: 80%;
+  text-align: center;
+  border: 2px solid #94a9bc;
+  border-radius: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: gray;
+  font-weight: 500;
+  box-shadow: 0 0 20px rgba(23, 0, 125, 0.3);
+}
+
+.edit-profile-button1 {
+  padding-left: 60px;
+  padding-bottom: 20px;
+}
+
+.edit-profile-button1 :hover {
+  background-color: #ecf5ff;
+}
+
+.ad-add-container {
+  padding-right: 160px;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.ad-add {
+  background-color: white;
+  text-align: center;
+  border: 2px solid #a4ff078a;
+  border-radius: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: gray;
+  font-weight: 500;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-size: larger;
+}
+
+.ad-add:hover {
+  background-color: #ecf9d68a;
+}
+
+.ad-add-link,
+.edit-profile-link {
+  color: grey;
+  text-decoration: none;
+}
+
+.col-profile,
+.col-3 {
+  border-right: 2px solid rgb(189, 185, 185);
+}
+
+/* --- PUBLICAR ANUNCIOS --- */
+.ad-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 80%;
+}
+
+.label-ad {
+  font-weight: 650;
+  padding: 10px;
+  font-size: large;
+}
+
+.input-ad {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid #94a9bc;
+  box-shadow: 0 0 20px rgba(23, 0, 125, 0.3);
+}
+
+.ad-add-title {
+  color: rgb(76, 48, 141);
+  padding-top: 30px;
+}
+
+.textarea-ad {
+  height: 80px;
+  border-radius: 10px;
+  border: 2px solid #94a9bc;
+  box-shadow: 0 0 20px rgba(23, 0, 125, 0.3);
+}
+
+.main-ads {
+  padding-bottom: 70px;
+}
+
+.button-save-ad {
+  width: 200%;
+  padding: 14px;
+  background: linear-gradient(to right, #133d62 0%, #0e676c 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: large;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.row-ads-add {
+  width: 200%;
+  padding: 10px;
+}
+
+.button-save-add-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 20px;
+  width: 150%;
+  padding-left: 200px;
+}
+
+.col-ads {
+  padding-left: 40px;
+}
+
+/* --- ANUNCIOS DEL USUARIO --- */
+ul {
+  list-style: none;
+}
+
+.text-none-ads {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: gray;
+  padding: 30px;
+  font-weight: 700;
+  font-size: larger;
+}
+
+.row-cards-ads {
+  padding-top: 60px;
+  padding-left: 20px;
+  gap: 5rem;
+  width: 150%;
+}
+
+.row-ads {
+  gap: 2rem;
+}
+
+.card,
+.card-ads,
+.card-all-ads,
+.card-show-all-ads {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card-ads {
+  width: 300px;
+  height: 450px;
+}
+
+.card-all-ads {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card:hover,
+.card-ads:hover,
+.card-all-ads:hover,
+.card-show-all-ads:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+}
+
+.img-all-ads {
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  align-items: center;
+}
+
+.img-all-show-ads {
+  object-fit: contain;
+  width: 100%;
+  max-height: 600px;
+  border-radius: 20px;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  align-items: center;
+}
+
+.card:hover .img-all-ads,
+.card-ads:hover .img-all-ads,
+.card-all-ads:hover .img-all-ads,
+.card-show-all-ads:hover .img-all-show-ads,
+.card-ads:hover .img-ads {
+  transform: scale(1.12);
+  filter: brightness(1.08);
+}
+
+.card-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title-ads {
+  padding-top: 20px;
+  padding-bottom: 2px;
+  color: rgb(32, 20, 60);
+  text-align: start;
+}
+
+.card-title-all-ads {
+  padding-top: 10px;
+  color: rgb(36, 25, 62);
+  text-align: center;
+  text-decoration: underline;
+}
+
+.card-body-ads,
+.card-footer-ads,
+.card-body-all-ads,
+.card-footer-all-ads {
+  font-size: large;
+  color: gray;
+  text-align: start;
+  padding: 0 15px;
+}
+
+.row-all-ads {
+  row-gap: 2rem;
+}
+
+.edit-ad-button,
+.delete-ad-button {
+  align-items: center;
+  background-color: white;
+  width: 100px;
+  text-align: center;
+  border: 2px solid #94a9bc;
+  border-radius: 50px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: gray;
+  font-weight: 500;
+  box-shadow: 0 0 20px rgba(23, 0, 125, 0.3);
+}
+
+.edit-ad-button {
+  width: 97%;
+  margin-left: 2px;
+  margin-top: 5px;
+}
+
+.edit-ad-button:hover {
+  background-color: #ecf5ff;
+}
+
+.delete-ad-button {
+  box-shadow: 0 0 20px rgba(74, 2, 2, 0.598);
+}
+
+.delete-ad-button:hover {
+  background-color: rgba(245, 217, 217, 0.598);
+}
+
+.ad-button-container {
+  display: flex;
+  justify-content: left;
+  padding-bottom: 15px;
+  padding-left: 80px;
+  gap: 20px;
+}
+
+/* --- Carousel --- */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(200%) sepia(80%) saturate(500%) hue-rotate(230deg)
+    brightness(30%) contrast(195%);
+  padding: 20px;
+}
+
+.icon-next {
+  left: 285px;
+}
+
+.icon-prev {
+  right: -5px;
+}
+
+.carousel-control-prev {
+  left: -5px;
+}
+
+.carousel-control-next {
+  right: -8px;
+}
+
+/* --- Upload Images --- */
+.upload-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 30px;
+}
+
+.upload-input {
+  display: none;
+}
+
+.upload-label {
+  background-color: white;
+  width: 100%;
+  text-align: center;
+  border: 2px solid #94a9bc;
+  border-radius: 10px;
+  color: gray;
+  font-weight: 500;
+  box-shadow: 0 0 20px rgba(23, 0, 125, 0.3);
+  font-size: medium;
+  padding: 5px;
+}
+
+.upload-label:hover {
+  background-color: #ecf5ff;
+}
+
+.upload-button {
+  background-color: white;
+  text-align: center;
+  border: 2px solid #a4ff078a;
+  border-radius: 10px;
+  color: gray;
+  font-weight: 500;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-size: medium;
+  width: 80%;
+  padding: 5px;
+}
+
+.upload-button:hover {
+  background-color: #ecf9d68a;
+}
+
+.img-all-ads {
+  width: 100%;
+  height: 250px;
+  object-fit: contain;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+  background: none;
+}
+
+.img-all-show-ads {
+  width: 100%;
+  max-height: 350px;
+  align-items: center;
+  border-radius: 10%;
+  margin-bottom: 0.5rem;
+}
+
+.description-ad {
+  font-size: large;
+  font-weight: 600;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.card-show-all-ads {
+  height: auto;
+  width: 600px;
+  border: solid #b5bbc0;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgb(186, 186, 187);
+}
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 200px));
+  gap: 4rem;
+  margin-top: 1rem;
+}
+
+.image-item {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  padding: 0.5rem;
+}
+
+.img-grid {
+  width: 250px;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 10%;
+  margin-bottom: 0.5rem;
+}
+
+.upload-label-edit-ad {
+  background-color: white;
+  text-align: center;
+  border: 2px solid #94a9bc;
+  border-radius: 10px;
+  color: gray;
+  font-weight: 500;
+  box-shadow: 0 0 20px rgba(23, 0, 125, 0.3);
+  font-size: large;
+  padding: 5px;
+}
+
+.upload-label-edit-ad:hover {
+  background-color: #ecf5ff;
+}
+
+.upload-button-edit-ad {
+  background-color: white;
+  text-align: center;
+  border: 2px solid #a4ff078a;
+  border-radius: 10px;
+  color: gray;
+  font-weight: 500;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-size: large;
+  padding: 5px;
+}
+
+.upload-button-edit-ad:hover {
+  background-color: #ecf9d68a;
+}
+
+.container-edit-button-add-ad {
+  display: flex;
+  justify-content: start;
+  gap: 1rem;
+  padding-top: 20px;
+}
+
+.upload-new-imgs {
+  margin-top: 20px;
+  font-size: medium;
+  color: gray;
+  font-weight: 700;
+}
+
+.delete-image-button {
+  background-color: white;
+  border: none;
+  color: gray;
+  text-decoration: underline;
+}
+
+.delete-image-button:hover {
+  color: gray;
+  font-weight: 600;
+}
+
+.button-save-add-container-edit-ad {
+  display: flex;
+  flex-direction: row;
+  width: 170%;
+  gap: 2rem;
+  padding-left: 100px;
+  padding-top: 20px;
+}
+
+#images {
+  width: 100px;
+  height: 100px;
+}
+
+.no-imgs {
+  color: gray;
+  font-weight: 700;
+  font-size: larger;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.img-ads {
+  object-fit: contain;
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+  transition: transform 0.8s ease, filter 0.8s ease;
+  align-items: center;
+}
+
+.columna {
+  max-width: 1000px;
+}
+
+.text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-footer-all-ads {
+  height: auto;
+  min-height: unset;
+  white-space: normal;
+}
+
+.card-body-all-ads {
+  height: auto;
+  min-height: unset;
+  white-space: normal;
+}

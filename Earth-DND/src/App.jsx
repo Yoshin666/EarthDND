@@ -1,0 +1,75 @@
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import { Login } from "./pages/Login.jsx";
+import Home from "./pages/Home.jsx";
+import { SignUp } from "./pages/Signup.jsx";
+import { Profile } from "./pages/Profile.jsx";
+import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
+import { AddAds } from "./pages/AdAdd.jsx";
+import { EditProfile } from "./pages/EditProfile.jsx";
+import { Ads } from "./pages/Ads.jsx";
+import { EditAds } from "./pages/EditAd.jsx";
+import { ShowAd } from "./pages/ShowAd.jsx";
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/Login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route path="/Signup" element={<SignUp />}></Route>
+        <Route
+          path="/Profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/AdAdd" element={<AddAds />}></Route>
+        <Route
+          path="/EditProfile"
+          element={
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="Ads"
+          element={
+            <ProtectedRoute>
+              <Ads />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="EditAd"
+          element={
+            <ProtectedRoute>
+              <EditAds />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="ShowAd"
+          element={
+            <ProtectedRoute>
+              <ShowAd />
+            </ProtectedRoute>
+          }
+        ></Route>
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;

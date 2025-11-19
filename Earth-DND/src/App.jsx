@@ -18,7 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <Router>
+    <Router basename="/EarthDND">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route

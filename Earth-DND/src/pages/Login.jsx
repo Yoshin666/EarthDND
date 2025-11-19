@@ -5,6 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export function Login({ onClose }) {
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:3000"
+      : "https://earthdnd.onrender.com";
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
@@ -15,7 +19,7 @@ export function Login({ onClose }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:3000/login", {
+      const res = await fetch("${API_URL}/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, pass }),

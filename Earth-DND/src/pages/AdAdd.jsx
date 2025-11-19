@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export function AddAds() {
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:3000"
+      : "https://earthdnd.onrender.com";
   const [values, setValues] = useState({
     title: "",
     description: "",
@@ -62,7 +66,7 @@ export function AddAds() {
           formData.append("images", file);
         });
 
-        const response = await fetch("http://localhost:3000/adAdd", {
+        const response = await fetch("${API_URL}/adAdd", {
           method: "POST",
           body: formData,
         });

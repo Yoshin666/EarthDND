@@ -5,6 +5,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Link } from "react-router-dom";
 
 export function EditProfile() {
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:3000"
+      : "https://earthdnd.onrender.com";
   const [user, setUser] = useState(null);
   const [values, setValues] = useState({
     name: "",
@@ -19,7 +23,7 @@ export function EditProfile() {
 
     if (!id) return;
 
-    fetch(`http://localhost:3000/user/${id}`)
+    fetch(`${API_URL}/user/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
@@ -84,7 +88,7 @@ export function EditProfile() {
     if (Object.keys(validationErrors).length === 0) {
       try {
         const id = localStorage.getItem("userId");
-        const response = await fetch("http://localhost:3000/edit-profile", {
+        const response = await fetch("${API_URL}/edit-profile", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

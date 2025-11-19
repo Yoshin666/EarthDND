@@ -5,6 +5,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Link } from "react-router-dom";
 
 export function SignUp() {
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:3000"
+      : "https://earthdnd.onrender.com";
   const [values, setValues] = useState({
     name: "",
     surname: "",
@@ -59,7 +63,7 @@ export function SignUp() {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await fetch("http://localhost:3000/signup", {
+        const response = await fetch("${API_URL}/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

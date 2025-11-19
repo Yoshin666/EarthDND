@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export function EditAds() {
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:3000"
+      : "https://earthdnd.onrender.com";
   const [user, setUser] = useState(null);
   const [values, setValues] = useState({
     title: "",
@@ -22,7 +26,7 @@ export function EditAds() {
 
     if (!id) return;
 
-    fetch(`http://localhost:3000/ad/${id}`)
+    fetch(`${API_URL}/ad/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("Datos recibidos:", data);
@@ -98,7 +102,7 @@ export function EditAds() {
           formData.append("images", file);
         });
 
-        const response = await fetch("http://localhost:3000/edit-Ad", {
+        const response = await fetch("${API_URL}/edit-Ad", {
           method: "POST",
           body: formData,
         });
@@ -134,7 +138,7 @@ export function EditAds() {
 
     const ad_id = localStorage.getItem("currentAdId");
     try {
-      const response = await fetch(`http://localhost:3000/ad/${ad_id}`, {
+      const response = await fetch(`${API_URL}/ad/${ad_id}`, {
         method: "DELETE",
       });
 
@@ -161,7 +165,7 @@ export function EditAds() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch("http://localhost:3000/delete-image", {
+      const response = await fetch("${API_URL}/delete-image", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ad_id, image: imageName }),
@@ -310,7 +314,7 @@ export function EditAds() {
                   {values.image_ads.map((image, index) => (
                     <div key={index} className="image-item">
                       <img
-                        src={`http://localhost:3000/uploads/${image}`}
+                        src={`${API_URL}/uploads/${image}`}
                         alt={`Imagen ${index + 1} del anuncio`}
                         className="img-grid"
                       />

@@ -5,11 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export function Ads() {
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:3000"
+      : "https://earthdnd.onrender.com";
   const navigate = useNavigate();
   const [ads, setAds] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/ads")
+    fetch("${API_URL}/ads")
       .then((res) => res.json())
       .then((data) => setAds(data))
       .catch((err) => console.error("Error al obtener anuncios:", err));

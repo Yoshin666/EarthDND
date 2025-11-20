@@ -9,6 +9,7 @@ export function SignUp() {
     import.meta.env.MODE === "development"
       ? "http://localhost:3000"
       : "https://earthdnd.onrender.com";
+
   const [values, setValues] = useState({
     name: "",
     surname: "",
@@ -63,7 +64,7 @@ export function SignUp() {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await fetch("${API_URL}/signup", {
+        const response = await fetch(`${API_URL}/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -91,6 +92,7 @@ export function SignUp() {
         }
       } catch (error) {
         console.error("Error al enviar datos:", error);
+        console.log(API_URL);
         alert("❌ Error de conexión con el servidor");
       }
     }

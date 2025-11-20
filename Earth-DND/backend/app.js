@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("./db/db");
+const pool = require("./db/db");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
@@ -48,18 +48,18 @@ app.post("/signup", async (req, res) => {
   if (!name || !surname || !email || !pass)
     return res.status(400).json({ error: "Faltan campos obligatorios" });
 
-  db.query(
+  pool.query(
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
       if (err) return res.status(500).json({ error: "Error en el servidor" });
-      if (results.length > 0)
+      if (results.row.length > 0)
         return res.status(400).json({ error: "El usuario ya está registrado" });
 
       const hashedPass = await bcrypt.hash(pass, 10);
       const sql =
         "INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)";
-      db.query(sql, [name, surname, email, hashedPass], (err2) => {
+      pool.query(sql, [name, surname, email, hashedPass], (err2) => {
         if (err2) {
           console.error("❌ Error al registrar usuario:", err2);
           return res.status(500).json({ error: "Error en el servidor" });
@@ -75,12 +75,12 @@ app.post("/login", async (req, res) => {
   if (!email || !pass)
     return res.status(400).json({ error: "Faltan campos obligatorios" });
 
-  db.query(
+  pool.query(
     "SELECT * FROM users WHERE email = ?",
     [email],
     async (err, results) => {
       if (err) return res.status(500).json({ error: "Error en el servidor" });
-      if (results.length === 0)
+      if (results.row.length === 0)
         return res.status(404).json({ error: "Usuario no encontrado" });
 
       const user = results[0];
@@ -97,12 +97,12 @@ app.post("/login", async (req, res) => {
 
 app.get("/user/:id", (req, res) => {
   const { id } = req.params;
-  db.query(
+  pool.query(
     "SELECT id, name, surname, email, profile_image FROM users WHERE id = ?",
     [id],
     (err, results) => {
       if (err) return res.status(500).json({ error: "Error en el servidor" });
-      if (results.length === 0)
+      if (results.row.length === 0)
         return res.status(404).json({ error: "Usuario no encontrado" });
       res.status(200).json(results[0]);
     }
@@ -120,7 +120,7 @@ app.post("/upload-profile", upload.single("imagen"), (req, res) => {
       .status(400)
       .json({ error: "Falta archivo 'imagen' en la petición" });
 
-  db.query(
+  pool.query(
     "SELECT profile_image FROM users WHERE id = ?",
     [userId],
     (err, results) => {
@@ -143,7 +143,7 @@ app.post("/upload-profile", upload.single("imagen"), (req, res) => {
       }
 
       const imagePath = req.file.filename;
-      db.query(
+      pool.query(
         "UPDATE users SET profile_image = ? WHERE id = ?",
         [imagePath, userId],
         (err2) => {
@@ -162,7 +162,7 @@ app.post("/upload-profile", upload.single("imagen"), (req, res) => {
 app.get("/ads/:id", (req, res) => {
   const { id } = req.params;
 
-  db.query(
+  pool.query(
     "SELECT id, title, description, email, number, image_ads FROM ads WHERE user_id = ?",
     [id],
     (err, results) => {
@@ -171,7 +171,7 @@ app.get("/ads/:id", (req, res) => {
         return res.status(500).json({ error: "Error en el servidor" });
       }
 
-      if (results.length === 0) {
+      if (results.row.length === 0) {
         return res.status(200).json([]);
       }
 
@@ -194,11 +194,12 @@ app.post("/adAdd", upload.array("images", 6), (req, res) => {
 
   const files = req.files || [];
   const filenames = files.map((f) => f.filename);
-  const imageAdsValue = filenames.length > 0 ? JSON.stringify(filenames) : null;
+  const imageAdsValue =
+    filenames.row.length > 0 ? JSON.stringify(filenames) : null;
 
   const sql =
     "INSERT INTO ads (title, description, email, number, user_id, image_ads) VALUES (?, ?, ?, ?, ?, ?)";
-  db.query(
+  pool.query(
     sql,
     [title, description, email, tel, user_id, imageAdsValue],
     (err) => {
@@ -223,15 +224,15 @@ app.post("/edit-profile", async (req, res) => {
   if (!id || !name || !surname || !email) {
     return res.status(400).json({ error: "Faltan campos obligatorios" });
   }
-  db.query("SELECT * FROM users WHERE id = ?", [id], async (err, results) => {
+  pool.query("SELECT * FROM users WHERE id = ?", [id], async (err, results) => {
     if (err) return res.status(500).json({ error: "Error en el servidor" });
-    if (results.length === 0)
+    if (results.row.length === 0)
       return res.status(404).json({ error: "Usuario no encontrado" });
     if (pass && pass.trim() !== "") {
       const hashedPass = await bcrypt.hash(pass, 10);
       const query =
         "UPDATE users SET name=?, surname=?, email=?, password=? WHERE id=?";
-      db.query(query, [name, surname, email, hashedPass, id], (err) => {
+      pool.query(query, [name, surname, email, hashedPass, id], (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({
           message: "Perfil actualizado correctamente (con nueva contraseña)",
@@ -239,7 +240,7 @@ app.post("/edit-profile", async (req, res) => {
       });
     } else {
       const query = "UPDATE users SET name=?, surname=?, email=? WHERE id=?";
-      db.query(query, [name, surname, email, id], (err) => {
+      pool.query(query, [name, surname, email, id], (err) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json({
           message:
@@ -252,7 +253,7 @@ app.post("/edit-profile", async (req, res) => {
 
 /*--- MOSTAR TODOS LOS ANUNCIOS */
 app.get("/ads", (req, res) => {
-  db.query("SELECT * FROM ads", (err, results) => {
+  pool.query("SELECT * FROM ads", (err, results) => {
     if (err) {
       return res.status(500).json({ error: "Error en el servidor" });
     }
@@ -263,7 +264,7 @@ app.get("/ads", (req, res) => {
 /* --- EDITAR ANUNCIOS --- */
 app.get("/ad/:id", (req, res) => {
   const { id } = req.params;
-  db.query("SELECT * FROM ads WHERE id = ?", [id], (err, results) => {
+  pool.query("SELECT * FROM ads WHERE id = ?", [id], (err, results) => {
     if (err) return res.status(500).json({ error: "Error en el servidor" });
     res.status(200).json(results);
   });
@@ -275,7 +276,7 @@ app.post("/edit-Ad", upload.array("images"), (req, res) => {
     return res.status(400).json({ error: "Faltan campos obligatorios" });
   }
 
-  db.query(
+  pool.query(
     "SELECT image_ads FROM ads WHERE id = ?",
     [ad_id],
     (err, results) => {
@@ -285,7 +286,7 @@ app.post("/edit-Ad", upload.array("images"), (req, res) => {
       }
 
       let oldImages = [];
-      if (results.length > 0 && results[0].image_ads) {
+      if (results.row.length > 0 && results[0].image_ads) {
         try {
           oldImages = JSON.parse(results[0].image_ads);
         } catch {
@@ -299,7 +300,7 @@ app.post("/edit-Ad", upload.array("images"), (req, res) => {
 
       const sql =
         "UPDATE ads SET title=?, description=?, email=?, number=?, image_ads=? WHERE id=?";
-      db.query(
+      pool.query(
         sql,
         [title, description, email, tel, JSON.stringify(updatedImages), ad_id],
         (err) => {
@@ -319,9 +320,9 @@ app.post("/edit-Ad", upload.array("images"), (req, res) => {
 app.delete("/ad/:id", (req, res) => {
   const { id } = req.params;
 
-  db.query("SELECT image_ads FROM ads WHERE id = ?", [id], (err, result) => {
+  pool.query("SELECT image_ads FROM ads WHERE id = ?", [id], (err, result) => {
     if (err) return res.status(500).json({ error: "Error en el servidor" });
-    if (result.length === 0)
+    if (result.row.length === 0)
       return res.status(404).json({ error: "Anuncio no encontrado" });
 
     let images = [];
@@ -345,7 +346,7 @@ app.delete("/ad/:id", (req, res) => {
       });
     });
 
-    db.query("DELETE FROM ads WHERE id = ?", [id], (err, result) => {
+    pool.query("DELETE FROM ads WHERE id = ?", [id], (err, result) => {
       if (err)
         return res.status(500).json({ error: "Error al eliminar anuncio" });
       if (result.affectedRows === 0)
@@ -364,46 +365,52 @@ app.post("/delete-image", (req, res) => {
     return res.status(400).json({ error: "Faltan parámetros (ad_id o image)" });
   }
 
-  db.query("SELECT image_ads FROM ads WHERE id = ?", [ad_id], (err, result) => {
-    if (err) return res.status(500).json({ error: "Error en el servidor" });
-    if (result.length === 0)
-      return res.status(404).json({ error: "Anuncio no encontrado" });
+  pool.query(
+    "SELECT image_ads FROM ads WHERE id = ?",
+    [ad_id],
+    (err, result) => {
+      if (err) return res.status(500).json({ error: "Error en el servidor" });
+      if (result.row.length === 0)
+        return res.status(404).json({ error: "Anuncio no encontrado" });
 
-    let images = [];
-    if (result[0].image_ads) {
-      try {
-        images = JSON.parse(result[0].image_ads);
-      } catch (e) {
-        console.error("Error al parsear image_ads:", e);
-        images = [];
+      let images = [];
+      if (result[0].image_ads) {
+        try {
+          images = JSON.parse(result[0].image_ads);
+        } catch (e) {
+          console.error("Error al parsear image_ads:", e);
+          images = [];
+        }
       }
+
+      const updatedImages = images.filter((img) => img !== image);
+
+      pool.query(
+        "UPDATE ads SET image_ads = ? WHERE id = ?",
+        [JSON.stringify(updatedImages), ad_id],
+        (err) => {
+          if (err)
+            return res
+              .status(500)
+              .json({ error: "Error al actualizar anuncio" });
+
+          const imagePath = path.join(process.cwd(), "uploads", image.trim());
+          fs.unlink(imagePath, (err) => {
+            if (err) {
+              console.log(`No se pudo eliminar la imagen: ${imagePath}`);
+            } else {
+              console.log(`Imagen eliminada: ${imagePath}`);
+            }
+          });
+
+          res.status(200).json({
+            message: "Imagen eliminada con éxito",
+            remainingImages: updatedImages,
+          });
+        }
+      );
     }
-
-    const updatedImages = images.filter((img) => img !== image);
-
-    db.query(
-      "UPDATE ads SET image_ads = ? WHERE id = ?",
-      [JSON.stringify(updatedImages), ad_id],
-      (err) => {
-        if (err)
-          return res.status(500).json({ error: "Error al actualizar anuncio" });
-
-        const imagePath = path.join(process.cwd(), "uploads", image.trim());
-        fs.unlink(imagePath, (err) => {
-          if (err) {
-            console.log(`No se pudo eliminar la imagen: ${imagePath}`);
-          } else {
-            console.log(`Imagen eliminada: ${imagePath}`);
-          }
-        });
-
-        res.status(200).json({
-          message: "Imagen eliminada con éxito",
-          remainingImages: updatedImages,
-        });
-      }
-    );
-  });
+  );
 });
 
 const PORT = 3000;

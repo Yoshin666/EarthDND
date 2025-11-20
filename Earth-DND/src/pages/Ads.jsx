@@ -97,7 +97,7 @@ export function Ads() {
                                     key={index}
                                   >
                                     <img
-                                      src={`http://localhost:3000/uploads/${img}`}
+                                      src={`${API_URL}/uploads/${img}`}
                                       className="img-all-ads"
                                       alt={`Imagen ${index + 1} anuncio ${
                                         ad.title

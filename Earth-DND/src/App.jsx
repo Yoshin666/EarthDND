@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -18,57 +18,52 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <HashRouter basename="/EarthDND">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/Login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
-        />
-        <Route path="/Signup" element={<SignUp />} />
-        <Route
-          path="/Profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/AdAdd" element={<AddAds />} />
-        <Route
-          path="/EditProfile"
-          element={
-            <ProtectedRoute>
-              <EditProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/Ads"
-          element={
-            <ProtectedRoute>
-              <Ads />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/EditAd"
-          element={
-            <ProtectedRoute>
-              <EditAds />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/ShowAd"
-          element={
-            <ProtectedRoute>
-              <ShowAd />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </HashRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/Login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+      <Route path="/Signup" element={<SignUp />} />
+      <Route
+        path="/Profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="/AdAdd" element={<AddAds />} />
+      <Route
+        path="/EditProfile"
+        element={
+          <ProtectedRoute>
+            <EditProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/Ads"
+        element={
+          <ProtectedRoute>
+            <Ads />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/EditAd"
+        element={
+          <ProtectedRoute>
+            <EditAds />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ShowAd"
+        element={
+          <ProtectedRoute>
+            <ShowAd />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 

@@ -5,10 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Link } from "react-router-dom";
 
 export function SignUp() {
-  const API_URL =
-    import.meta.env.MODE === "development"
-      ? "http://localhost:3000"
-      : "https://earthdnd.onrender.com";
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [values, setValues] = useState({
     name: "",

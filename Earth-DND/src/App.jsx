@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  HashRouter,
-} from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -24,57 +19,61 @@ function App() {
 
   return (
     <HashRouter basename="/EarthDND">
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/Login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route path="/Signup" element={<SignUp />}></Route>
-          <Route
-            path="/Profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/AdAdd" element={<AddAds />}></Route>
-          <Route
-            path="/EditProfile"
-            element={
-              <ProtectedRoute>
-                <EditProfile />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="Ads"
-            element={
-              <ProtectedRoute>
-                <Ads />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="EditAd"
-            element={
-              <ProtectedRoute>
-                <EditAds />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="ShowAd"
-            element={
-              <ProtectedRoute>
-                <ShowAd />
-              </ProtectedRoute>
-            }
-          ></Route>
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/Login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route path="/Signup" element={<SignUp />} />
+
+        <Route
+          path="/Profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/AdAdd" element={<AddAds />} />
+
+        <Route
+          path="/EditProfile"
+          element={
+            <ProtectedRoute>
+              <EditProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/Ads"
+          element={
+            <ProtectedRoute>
+              <Ads />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/EditAd"
+          element={
+            <ProtectedRoute>
+              <EditAds />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/ShowAd"
+          element={
+            <ProtectedRoute>
+              <ShowAd />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
     </HashRouter>
   );
 }

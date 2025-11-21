@@ -18,7 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <HashRouter basename="/EarthDND">
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route

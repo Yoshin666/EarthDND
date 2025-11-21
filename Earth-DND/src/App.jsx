@@ -19,7 +19,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <Router basename="/EarthDND">
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -27,7 +27,6 @@ function App() {
           element={<Login setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route path="/Signup" element={<SignUp />} />
-
         <Route
           path="/Profile"
           element={
@@ -36,9 +35,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route path="/AdAdd" element={<AddAds />} />
-
         <Route
           path="/EditProfile"
           element={
@@ -47,7 +44,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/Ads"
           element={
@@ -56,7 +52,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/EditAd"
           element={
@@ -65,7 +60,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/ShowAd"
           element={

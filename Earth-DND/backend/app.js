@@ -1,5 +1,5 @@
 const express = require("express");
-const pool = require("./db/db");
+const pool = require("./db/db"); // conexión con pg
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
@@ -53,31 +53,33 @@ app.get("/", (req, res) => {
 app.post("/signup", async (req, res) => {
   const { name, surname, email, pass } = req.body;
 
-  if (!name || !surname || !email || !pass)
+  if (!name || !surname || !email || !pass) {
     return res.status(400).json({ error: "Faltan campos obligatorios" });
+  }
 
-  pool.query(
-    "SELECT * FROM users WHERE email = ?",
-    [email],
-    async (err, results) => {
-      if (err) return res.status(500).json({ error: "Error en el servidor" });
-
-      if (results.length > 0)
-        return res.status(400).json({ error: "El usuario ya está registrado" });
-
-      const hashedPass = await bcrypt.hash(pass, 10);
-
-      const sql =
-        "INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)";
-      pool.query(sql, [name, surname, email, hashedPass], (err2) => {
-        if (err2) {
-          console.error("❌ Error al registrar usuario:", err2);
-          return res.status(500).json({ error: "Error en el servidor" });
-        }
-        res.status(200).json({ message: "Usuario registrado con éxito ✅" });
-      });
+  try {
+    // Verificar si el usuario ya existe
+    const checkUser = await pool.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
+    if (checkUser.rows.length > 0) {
+      return res.status(400).json({ error: "El usuario ya está registrado" });
     }
-  );
+
+    // Encriptar contraseña
+    const hashedPass = await bcrypt.hash(pass, 10);
+
+    // Insertar nuevo usuario
+    await pool.query(
+      "INSERT INTO users (name, surname, email, password) VALUES ($1, $2, $3, $4)",
+      [name, surname, email, hashedPass]
+    );
+
+    res.status(200).json({ message: "Usuario registrado con éxito ✅" });
+  } catch (err) {
+    console.error("❌ Error en /signup:", err);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
 });
 
 /* ----------------- AUTH: LOGIN ----------------- */

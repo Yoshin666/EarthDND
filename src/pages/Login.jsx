@@ -5,8 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export function Login({ onClose }) {
-  const API_URL = import.meta.env.VITE_API_URL;
-  console.log("API_URL en Login:", API_URL);
+  const API_URL = "https://earthdnd.onrender.com";
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");

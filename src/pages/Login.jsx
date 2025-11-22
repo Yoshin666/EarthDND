@@ -10,6 +10,7 @@ export function Login({ onClose }) {
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  console.log("Login URL:", `${API_URL}/login`);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

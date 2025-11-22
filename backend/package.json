@@ -4,7 +4,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "init-db": "node createTables.js"
+    "init-db": "node createTables.js",
+    "migrate": "node migrate.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

@@ -5,10 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Login } from "./Login";
 import { useState, useEffect } from "react";
 export default function Home() {
-  const API_URL =
-    import.meta.env.MODE === "development"
-      ? "http://localhost:3000"
-      : "https://earthdnd.onrender.com";
+  const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);

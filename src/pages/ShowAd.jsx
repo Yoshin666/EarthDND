@@ -5,10 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export function ShowAd() {
-  const API_URL =
-    import.meta.env.MODE === "development"
-      ? "http://localhost:3000"
-      : "https://earthdnd.onrender.com";
+  const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [ad, setAd] = useState(null);
 

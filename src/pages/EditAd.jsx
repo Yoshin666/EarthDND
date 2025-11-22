@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export function EditAds() {
-  const API_URL =
-    import.meta.env.MODE === "development"
-      ? "http://localhost:3000"
-      : "https://earthdnd.onrender.com";
+  const API_URL = import.meta.env.VITE_API_URL;
   const [user, setUser] = useState(null);
   const [values, setValues] = useState({
     title: "",

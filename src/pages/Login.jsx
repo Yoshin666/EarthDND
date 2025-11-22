@@ -6,11 +6,11 @@ import { useState } from "react";
 
 export function Login({ onClose }) {
   const API_URL = import.meta.env.VITE_API_URL;
+  console.log("API_URL en Login:", API_URL);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  console.log("Login URL:", `${API_URL}/login`);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -85,7 +85,7 @@ export function EditProfile() {
     if (Object.keys(validationErrors).length === 0) {
       try {
         const id = localStorage.getItem("userId");
-        const response = await fetch("${API_URL}/edit-profile", {
+        const response = await fetch(`${API_URL}/edit-profile`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

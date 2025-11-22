@@ -63,7 +63,7 @@ export function AddAds() {
           formData.append("images", file);
         });
 
-        const response = await fetch("${API_URL}/adAdd", {
+        const response = await fetch(`${API_URL}/adAdd`, {
           method: "POST",
           body: formData,
         });

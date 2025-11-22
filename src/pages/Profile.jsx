@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export function Profile() {
-  const API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [ads, setAds] = useState([]);
@@ -19,7 +18,7 @@ export function Profile() {
     formData.append("imagen", file);
     formData.append("userId", localStorage.getItem("userId"));
 
-    await axios.post("http://localhost:3000/upload-profile", formData, {
+    await axios.post(`${API_URL}/upload-profile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -33,12 +32,12 @@ export function Profile() {
     const id = localStorage.getItem("userId");
     if (!id) return;
 
-    fetch(`http://localhost:3000/user/${id}`)
+    fetch(`${API_URL}/user/${id}`)
       .then((res) => res.json())
       .then((data) => setUser(data))
       .catch((err) => console.error("Error al obtener el usuario:", err));
 
-    fetch(`http://localhost:3000/ads/${id}`)
+    fetch(`${API_URL}/ads/${id}`)
       .then((res) => res.json())
       .then((data) => setAds(data))
       .catch((err) => console.error("Error al obtener anuncios:", err));
@@ -91,7 +90,7 @@ export function Profile() {
                       <img
                         src={
                           user.profile_image
-                            ? `http://localhost:3000/uploads/${user.profile_image}`
+                            ? `${API_URL}/uploads/${user.profile_image}`
                             : "https://cdn-icons-png.flaticon.com/512/847/847969.png"
                         }
                         alt="Foto de perfil"
@@ -177,7 +176,7 @@ export function Profile() {
                                         >
                                           <div className="card-img">
                                             <img
-                                              src={`http://localhost:3000/uploads/${image}`}
+                                              src={`${API_URL}/uploads/${image}`}
                                               className="img-ads"
                                               alt={`Imagen ${
                                                 index + 1

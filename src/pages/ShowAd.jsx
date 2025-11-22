@@ -12,7 +12,7 @@ export function ShowAd() {
   useEffect(() => {
     const adId = localStorage.getItem("currentAdId");
 
-    fetch("http://localhost:3000/ads")
+    fetch(`${API_URL}/ads`)
       .then((res) => res.json())
       .then((data) => {
         const anuncioFiltrado = data.find((ad) => ad.id == adId);
@@ -83,7 +83,7 @@ export function ShowAd() {
                           key={index}
                         >
                           <img
-                            src={`http://localhost:3000/uploads/${img}`}
+                            src={`${API_URL}/uploads/${img}`}
                             className="img-all-show-ads"
                             alt={`Imagen ${index + 1} anuncio ${ad.title}`}
                           />

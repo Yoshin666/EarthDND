@@ -10,7 +10,7 @@ export function Ads() {
   const [ads, setAds] = useState([]);
 
   useEffect(() => {
-    fetch("${API_URL}/ads")
+    fetch(`${API_URL}/ads`)
       .then((res) => res.json())
       .then((data) => setAds(data))
       .catch((err) => console.error("Error al obtener anuncios:", err));

@@ -99,7 +99,7 @@ export function EditAds() {
           formData.append("images", file);
         });
 
-        const response = await fetch("${API_URL}/edit-Ad", {
+        const response = await fetch(`${API_URL}/edit-Ad`, {
           method: "POST",
           body: formData,
         });
@@ -162,7 +162,7 @@ export function EditAds() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch("${API_URL}/delete-image", {
+      const response = await fetch(`${API_URL}/delete-image`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ad_id, image: imageName }),

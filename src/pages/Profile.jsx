@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export function Profile() {
+  const API_URL = "https://earthdnd.onrender.com";
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [ads, setAds] = useState([]);

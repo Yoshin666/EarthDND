@@ -34,14 +34,33 @@ export function Profile() {
     if (!id) return;
 
     fetch(`${API_URL}/user/${id}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al obtener usuario");
+        return res.json();
+      })
       .then((data) => setUser(data))
-      .catch((err) => console.error("Error al obtener el usuario:", err));
+      .catch((err) => {
+        console.error(err);
+        setUser(null);
+      });
 
     fetch(`${API_URL}/ads/${id}`)
-      .then((res) => res.json())
-      .then((data) => setAds(data))
-      .catch((err) => console.error("Error al obtener anuncios:", err));
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al obtener anuncios");
+        return res.json();
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setAds(data);
+        } else {
+          setAds([]);
+          console.error("Los anuncios no son un array:", data);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setAds([]);
+      });
   }, []);
 
   if (!user) {

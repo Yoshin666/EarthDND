@@ -94,18 +94,32 @@ app.post("/login", async (req, res) => {
 });
 
 /* ----------------- PERFIL ----------------- */
-app.get("/user/:id", (req, res) => {
-  const { id } = req.params;
-  pool.query(
-    "SELECT id, name, surname, email, profile_image FROM users WHERE id = $1",
-    [id],
-    (err, results) => {
-      if (err) return res.status(500).json({ error: "Error en el servidor" });
-      if (results.rows.length === 0)
-        return res.status(404).json({ error: "Usuario no encontrado" });
-      res.status(200).json(results.rows[0]);
+app.get("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      "SELECT id, name, surname, email, profile_image FROM users WHERE id=$1",
+      [id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
     }
-  );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Error en /user/:id", err);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
+});
+
+app.get("/ads/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query("SELECT * FROM ads WHERE user_id=$1", [id]);
+    res.json(result.rows); // devuelve array
+  } catch (err) {
+    console.error("Error en /ads/:id", err);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
 });
 
 // Subir imagen de perfil
@@ -154,28 +168,6 @@ app.post("/upload-profile", upload.single("imagen"), (req, res) => {
           res.json({ success: true, file: imagePath, url: imageUrl });
         }
       );
-    }
-  );
-});
-
-// Obtener anuncios de un usuario por su id
-app.get("/ads/:id", (req, res) => {
-  const { id } = req.params;
-
-  pool.query(
-    "SELECT id, title, description, email, number, image_ads FROM ads WHERE user_id = $1",
-    [id],
-    (err, results) => {
-      if (err) {
-        console.error("❌ Error al obtener anuncios:", err);
-        return res.status(500).json({ error: "Error en el servidor" });
-      }
-
-      if (results.rows.length === 0) {
-        return res.status(200).json([]);
-      }
-
-      res.status(200).json(results.rows);
     }
   );
 });

@@ -1120,3 +1120,36 @@ ul {
     font-size: small;
   }
 }
+
+.casaModelo {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .row .col-4 {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+  }
+
+  .find-your-spot .card {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .find-your-spot .card img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  section .card {
+    width: 100% !important;
+  }
+}
+@media (max-width: 480px) {
+  .casaModelo {
+    border-radius: 10px;
+  }
+}

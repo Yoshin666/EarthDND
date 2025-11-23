@@ -17,11 +17,6 @@ async function migrate() {
       ALTER TABLE ads
       ADD COLUMN IF NOT EXISTS image_ads TEXT;
     `);
-    await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS surname TEXT;
-ALTER TABLE users ADD COLUMN IF NOT EXISTS profile_image TEXT;
-
-ALTER TABLE ads ADD COLUMN IF NOT EXISTS image_ads TEXT;
-`);
 
     console.log("✅ Migración completada");
   } catch (err) {

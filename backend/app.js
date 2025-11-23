@@ -115,7 +115,7 @@ app.get("/ads/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const result = await pool.query("SELECT * FROM ads WHERE user_id=$1", [id]);
-    res.json(result.rows); // devuelve array
+    res.json(result.rows);
   } catch (err) {
     console.error("Error en /ads/:id", err);
     res.status(500).json({ error: "Error en el servidor" });

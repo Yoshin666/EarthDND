@@ -13,11 +13,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "../src/assets/uploads"))
-);
-
 app.use(express.json());
 app.use(
   cors({
@@ -28,14 +23,17 @@ app.use(
 );
 
 // Multer
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../src/assets/uploads"));
+    cb(null, path.join(__dirname, "uploads"));
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname));
   },
 });
+
 const upload = multer({ storage });
 
 app.get("/", (req, res) => {

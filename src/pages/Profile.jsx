@@ -74,7 +74,7 @@ export function Profile() {
             className="button-close-profile"
             onClick={() => {
               localStorage.removeItem("userEmail");
-              window.location.href = "/EarthDND";
+              navigate("/");
             }}
           >
             Cerrar sesión
